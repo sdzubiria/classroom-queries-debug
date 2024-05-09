@@ -8,5 +8,7 @@
 #  course_id  :integer
 #  student_id :integer
 #
+# app/models/enrollment.rb
 class Enrollment < ApplicationRecord
+  belongs_to :course
 end

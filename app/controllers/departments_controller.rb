@@ -7,10 +7,11 @@ class DepartmentsController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-    @department = Department.where({:id => the_id })
-
+    @department = Department.find(the_id)  # This will raise an exception if not found
+  
     render({ :template => "departments/show" })
   end
+  
 
   def create
     @department = Department.new

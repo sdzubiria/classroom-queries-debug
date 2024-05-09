@@ -10,7 +10,7 @@
       Title
     </label>
 
-    <input type="text" id="title_b" name="q_title">
+    <input type="text" id="title_box" name="query_title">
   </div>
 
   <div>
@@ -64,32 +64,37 @@
     </th>
   </tr>
 
-  <% @course.each do |course| %>
-    <tr>
-      <td>
-        <%= course.id %>
-      </td>
+  <% @courses.each do |course| %>
+  <tr>
+    <td>
+      <%= course.id %>
+    </td>
+    <td>
+      <%= course.title %>
+    </td>
+    <td>
+      <%= course.term_offered %>
+    </td>
+    <td>
+      <% if course.department_id.present? %>
+        <% department_obj = Department.find_by(id: course.department_id) %>
+        <% if department_obj %>
+          <a href="/departments/<%= department_obj.id %>"><%= department_obj.name %></a>
+        <% else %>
+          Unknown
+        <% end %>
+      <% else %>
+        No Department
+      <% end %>
+    </td>
+    <td>
+      <a href="/courses/<%= course.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+<% end %>
 
-      <td>
-        <%= course.title %>
-      </td>
-
-      <td>
-        <%= course.term_offered %>
-      </td>
-
-      <td>
-        <% department = department.where({ :id => course.department_id }).at(0) %>
-        <a href="/departments/<%= department.id %>"><%= department.name %></a>
-      </td>
-
-      <td>
-        <a href="/courses/<%= @course.id %>">
-          Show details
-        </a>
-      </td>
-    </tr>
-  <% end %>
 </table>
 
 <hr>
